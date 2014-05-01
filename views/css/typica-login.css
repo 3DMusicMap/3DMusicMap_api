@@ -9,7 +9,7 @@ html {
 
 /* line 13, ../sass/typica-login.scss */
 body {
-  background: url(../bgRed.png) no-repeat center center fixed;
+  background: url(../img/gray.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -57,7 +57,7 @@ body {
 /* line 49, ../sass/typica-login.scss */
 .navbar .navbar-inner {
   height: 80px;
-  background: black;
+  background: white;
   filter: none;
 }
 /* line 54, ../sass/typica-login.scss */
@@ -107,7 +107,7 @@ body {
   padding: 25px;
   width: 420px;
   height: 320px;
-  background: #414141;
+  background: #3d3d3d;
   text-align: center;
 }
 
@@ -162,7 +162,7 @@ body {
   margin-bottom: 70px;
   padding-top: 25px;
   padding-bottom: 25px;
-  background: white;
+  background: #3d3d3d;
   text-align: center;
 }
 
@@ -259,7 +259,7 @@ footer.white {
   font-family: 'Lato', Helvetica, sans-serif;
   font-size: 36px;
   font-weight: 300;
-  color: #fff;
+  color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
@@ -267,7 +267,7 @@ footer.white {
 .login-form label {
   font-family: 'Lato', Helvetica, sans-serif;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 300;
 }
 
@@ -277,14 +277,14 @@ footer.white {
   font-family: 'Lato', Helvetica, sans-serif;
   font-size: 36px;
   font-weight: 300;
-  color: #333333;
+  color: #ffffff;
   -webkit-font-smoothing: subpixel-antialiased;
 }
 /* line 39, D:/DropBox/bootstrap/typica-login/sass/includes/_fonts.scss */
 #register-form label {
   font-family: 'Lato', Helvetica, sans-serif;
   font-size: 18px;
-  color: #333333;
+  color: #ffffff;
   font-weight: 300;
 }
 
