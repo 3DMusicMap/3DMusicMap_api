@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<!--
+AUTHOR : IVAN CAPISTRAN
+DESKTOP APPLICATION
+*HEY MAKE SURE TO TAKE OFF ALL THE STYLE TAGS OF ANY HTML DOM ELEMENT
+*PUT THEM IN A FINAL CSS FILE
+*MAKE SURE TO ALSO LOOK AT ANY FINAL NOTES BEFORE YOU FINALIZE THE PAGE
+*CLEAN UP ALL SPACES AND MAKE THE CODE LOOK PRETTY AND DANDY LIKE CANDY PLEASE
+
+
+
+
+
+
+
+-->
+<!-- -->
+
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version (or Chrome Frame if pre-IE11). -->
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Hello World!</title>
+  <script type="text/javascript" src="Cesium/Cesium.js"></script>
+    <script>
+
+
+    </script>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"> </script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link type="text/css" rel="stylesheet"  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" >
+
+  <style>
+      @import url(Cesium/Widgets/widgets.css);
+      body{
+          overflow-y:hidden;
+          overflow-y:hidden;
+
+      }
+      #cesiumContainer {
+          position: absolute;
+          z-index:0;
+          margin: 0px 0px 0px 0px;
+          height: 100%;
+          width: 100%;
+          top: 0px;
+          bottom: 0px;
+      }
+
+      #demodiv {
+          position: relative;
+          z-index: 10;
+          width: 100%;
+          height: 80px;
+          background-color:grey;
+          padding: 0px 0px 0px 0px;
+          display: inline-flex;
+          margin: 0px 0px 0px 0px;
+      }
+      #demodiv button {
+          width: 100px;
+      }
+      
+      #oppboard menu {
+      	padding:0px 13px 0px 0px;
+      	
+      	
+      }
+      
+      #oppboard menu, li {
+      	float:right;
+      	list-style:none;
+      	
+      }
+      
+      
+      .btn-inverse {
+      	background-color:ivory ;
+      	color:blue;
+      	
+      }
+      
+  </style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+<div id="cesiumContainer"> </div>
+
+<div>
+
+<div>
+<div id="bottompopupcontainer" style="width:100%;height:401px;position:absolute;z-index:50;padding: 0px 0px 0px 0px;bottom:-200px;">
+	<div id="bottompopupsensor" style="width:100%;height:200px;background-color:transparent;z-index:60; " onmouseover="bottompopup()"> </div>
+	<div id="bottompopupbar" style="width:100%;height:200px;background-color:orange;z-index: 70;"> 
+	
+	
+			
+		
+		
+	</div>
+</div>
+</div>
+
+<div>
+
+<div id="leftpopupcontainer" style="display:inline-flex;top:0px;left:-200px;width: 401px;height: 100%;position: absolute;z-index: 20;padding: 0px 0px 0px 0px;">
+    <div id="leftpopupbar" style="width: 200px;height: 100%;padding: 5px 5px 5px 5px;background-color:aqua;z-index: 40;margin: 0 0 0 0;"> 
+    	<div style="top:0px;width:100%;background-color:orange;height: 36px;text-align: right;padding:3px 13px 3px 3px;" onmouseover="leftpopupstay()"> Opportunity </div>	
+    	<div id="oppboard" style="width:100%;background-color:purple;">
+    		<menu style="width:100%;background-color:gray;" >
+    			<li>
+    				<button class="btn btn-inverse" onclick="loadCity('austin')" >Austin</button>    				    				    				
+    			</li>
+    			
+    			
+    		</menu>
+    		
+    	</div>
+    	
+    </div>
+    <div id="leftpopupsensor" style="width: 200px;height: 100%;background-color: transparent;z-index:30;" onmouseover="leftpopup()"> </div>
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<!-- FINAL SCRIPT TO LOAD AT BOTTOM OF PAGE -->
+<script type="text/javascript">
+
+
+        var arcgis = new Cesium.ArcGisMapServerImageryProvider({
+            url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+        });
+
+
+        var bing = new Cesium.BingMapsImageryProvider({
+        url : 'http://dev.virtualearth.net',
+        key : 'AkwNVQkwsY2NXlal4eu11jNiPSKkGs-SmzdW_rCJ_woQNCSk5fS_1Oq5X-eVSXMK',
+        mapStyle : Cesium.BingMapsStyle.AERIAL
+
+    });
+
+
+        var widget = new Cesium.CesiumWidget('cesiumContainer',{
+        	imageryProvider: new Cesium.OpenStreetMapImageryProvider()
+        				
+        		
+        	
+        	
+        	
+        });
+		      
+        var telement = widget
+
+
+       
+
+
+/*
+var widget = new Cesium.CesiumWidget('cesiumContainer', {
+    imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+    })
+});
+*/
+
+/*global $*/
+
+/*
+(function () {
+    "use strict";
+   */
+/*
+    var widget = new Cesium.CesiumWidget('cesiumContainer');
+    var scene = widget.scene;
+*/
+    // Create toolbar template
+   
+/*
+    $('#toolbar').html(
+        '<button id="mode3D" class="aButton">3D globe</button> ' +
+        '<button id="modeColumbus" class="aButton">Columbus view</button> ' +
+        '<button id="mode2D" class="aButton">2D map</button>'
+    );
+*/
+
+
+    // Activate toolbar buttons with jQuery UI
+    /*
+    $(".aButton").button({
+        text: true,
+        icons: { primary: "ui-icon-blank" }
+    }).click(function() {
+        // Emulate radio buttons
+        $(".aButton").button("option", { icons: { primary: "ui-icon-blank" }});
+        $(this).button("option", { icons: { primary: "ui-icon-check" }});
+    });
+*/
+    // 3D is the default view
+  
+
+/*
+    $('#mode2D').click(function () {
+        scene.morphTo2D();
+    });
+
+    $('#mode3D').click(function (){
+      scene.morphTo3D();
+
+
+    });
+
+    $('#modeColumbus').click(function(){
+      scene.morphToColumbusView();
+
+    });
+*/
+
+
+    // Just for fun
+   // $('#dialog').text('Try moving and closing this dialog, ' +
+    //    'and clicking the view buttons.').dialog();
+
+    //Sandcastle.finishedLoading();
+/* end of source code */
+
+/*
+    var widget = new Cesium.CesiumWidget('cesiumContainer',{
+        imageryProvider : new Cesium.BingMapsImageryProvider({
+            url: 'http://dev.virtualearth.net',
+            key: 'AkwNVQkwsY2NXlal4eu11jNiPSKkGs-SmzdW_rCJ_woQNCSk5fS_1Oq5X-eVSXMK',
+            mapStyle: Cesium.BingMapsStyle.AERIAL
+        })
+
+
+
+    });
+*/
+/*
+    var widget = new Cesium.CesiumWidget('cesiumContainer', {
+        imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+            url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+        })
+    });
+*/
+
+/*
+}());
+*/
+
+	function loadCity(name /* string */){
+		
+		//alert(name+'');
+		
+	
+		
+		
+	}
+
+
+        function addBillboard(scene, ellipsoid) {
+          //  Sandcastle.declare(addBillboard); // For highlighting in Sandcastle.
+            var image = new Image();
+            image.onload = function() {
+                var billboards = new Cesium.BillboardCollection();
+                var textureAtlas = scene.createTextureAtlas({
+                    image : image
+                });
+                billboards.textureAtlas = textureAtlas;
+
+                billboards.add({
+                    position : ellipsoid.cartographicToCartesian(Cesium.Cartographic.fromDegrees(-75.59777, 40.03883)),
+                    imageIndex : 0
+                });
+                scene.primitives.add(billboards);
+            };
+            image.src = '../images/Cesium_Logo_overlay.png';
+        }
+
+
+
+
+/* left pop up bar */
+    function leftpopupout(){
+
+        $('#leftpopupbar').animate({
+            marginLeft:"-150px",
+            marginRight:"150px"
+
+        },500);
+        
+        $('#bottompopupbar').css({
+        	zIndex: "70"
+        });
+        $('#bottompopupsensor').css({
+        	zIndex: "60"
+        });
+        $('#bottompopupcontainer').css({
+        	zIndex: "50"
+        });
+        
+        $('#leftpopupsensor').attr({
+        	onmouseover: "leftpopup()"
+        	
+        });
+        
+    }
+
+
+    function leftpopup() {
+        //alert("here");
+        
+        $('#bottompopupbar').css({
+        	zIndex: "0"
+        });
+        $('#bottompopupsensor').css({
+        	zIndex: "0"
+        });
+        $('#bottompopupcontainer').css({
+        	zIndex: "0"
+        });
+        
+        $('#leftpopupbar').animate({
+
+            marginLeft: "150px",
+            marginRight: "-150px"
+
+        },50);
+		
+
+
+
+
+		
+
+        $('#leftpopupsensor').attr({
+            onmouseover: "leftpopupout()"
+        }  );
+    
+        
+        
+    }
+
+/* end of left pop up bar */
+
+/* bottom pop up bar */
+
+	function bottompopupout(){
+		
+		$('#bottompopupbar').animate({
+			marginBottom: "-150px",
+			marginTop: "+=150px"
+		},500);
+		
+		$('#bottompopupbar').attr({
+			onmouseout: ""
+			
+		});
+		
+		$('#leftpopupbar').css({
+        	zIndex: "40"
+        });
+        $('#leftpopupsensor').css({
+        	zIndex: "30"
+        });
+        $('#leftpopupcontainer').css({
+        	zIndex: "20"
+        });
+        
+        $('#bottompopupsensor').attr({
+        	onmouseover: "bottompopup()"
+        	
+        });
+		
+		
+	}
+	
+	function bottompopup(){
+		
+		$('#leftpopupbar').css({
+        	zIndex: "0"
+        });
+        $('#leftpopupsensor').css({
+        	zIndex: "0"
+        });
+        $('#leftpopupcontainer').css({
+        	zIndex: "0"
+        });
+        
+		
+		
+		$('#bottompopupbar').animate({
+			marginBottom: "150px",
+			marginTop: "-150px"
+			
+		},50);
+		
+		
+		$('#bottompopupsensor').attr({
+			onmouseover: "bottompopupout()"
+			
+		});
+		
+		
+	}
+/* end of bottom pop up bar */
+
+	function leftpopupstay(){
+		
+		
+		
+		
+	}
+
+  </script>
+
+</body>
+</html>
