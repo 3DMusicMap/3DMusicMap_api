@@ -72,7 +72,7 @@ DESKTOP APPLICATION
       	
       }
       
-      #oppboard menu, li {
+      #oppboard menu, li button {
       	float:right;
       	list-style:none;
       	
@@ -119,16 +119,21 @@ DESKTOP APPLICATION
     <div id="leftpopupbar" style="width: 200px;height: 100%;padding: 5px 5px 5px 5px;background-color:aqua;z-index: 40;margin: 0 0 0 0;"> 
     	<div style="top:0px;width:100%;background-color:orange;height: 36px;text-align: right;padding:3px 13px 3px 3px;" onmouseover="leftpopupstay()"> Opportunity </div>	
     	<div id="oppboard" style="width:100%;background-color:purple;">
-    		<menu style="width:100%;background-color:gray;" >
+
+    		<ul style="width:100%;background-color:gray;display:inline;height:300px;" >
     			<li>
     				<button class="btn btn-inverse" onclick="loadCity('austin')" >Austin</button>    				    				    				
     			</li>
+                <br>
+                <li>
+                    <button  >test</button>
+                </li>
     			
     			
-    		</menu>
+    		</ul>
     		
     	</div>
-    	
+        <div id="output"></div>
     </div>
     <div id="leftpopupsensor" style="width: 200px;height: 100%;background-color: transparent;z-index:30;" onmouseover="leftpopup()"> </div>
 </div>
@@ -142,7 +147,7 @@ DESKTOP APPLICATION
 
 
 
-
+<script type="text/javascript" src="csvjson.js" ></script>
 <!-- FINAL SCRIPT TO LOAD AT BOTTOM OF PAGE -->
 <script type="text/javascript">
 
@@ -156,32 +161,71 @@ DESKTOP APPLICATION
         url : 'http://dev.virtualearth.net',
         key : 'AkwNVQkwsY2NXlal4eu11jNiPSKkGs-SmzdW_rCJ_woQNCSk5fS_1Oq5X-eVSXMK',
         mapStyle : Cesium.BingMapsStyle.AERIAL
-
     });
 
 
         var widget = new Cesium.CesiumWidget('cesiumContainer',{
-        	imageryProvider: new Cesium.OpenStreetMapImageryProvider()
-        				
-        		
-        	
-        	
-        	
+        	//imageryProvider: new Cesium.OpenStreetMapImageryProvider()
+            imageryProvider: new Cesium.OpenStreetMapImageryProvider()
         });
 		      
-        var telement = widget
+        var scene = widget.scene;
+        var ellipsoid = scene.globe.ellipsoid;
+        var primitives = scene.primitives;
+
+        var to =" r";
+
+        $.ajax("http://localhost/cesiumMain/bad3.csv", {
+
+            success: function(data) {
+             alert(data);
+
+             var dataarray = [{"long": -97.36780, "lat": 32.57142 },{"long": -89.79285, "lat": 30.24217 },{"long": -84.94347, "lat": 32.50886} ];
+               // var data2 = '{"name": "mkyong","age": 30,"address": {"streetAddress": "88 8nd Street","city": "New York"},"phoneNumber": [{"type": "home","number": "111 111-1111"},{"type": "fax","number": "222 222-2222"}]}';
+               // alert(data2);
+            var i = 0;
+                for (i = 0; i < dataarray.length; i++){
+                    //alert('' + dataarray[i].long);
+                    var longl = dataarray[i].long;
+                    var longla = dataarray[i].lat;
+                    addBillboard(scene,ellipsoid,longl,longla);
+                    addBillboard(scene,ellipsoid,dataarray[i].long,dataarray[i].lat);
+                    alert("after");
+                }
+
+             //var jsonobject = csvjson.csv2json(tempjson);
+                $('#leftpopupbar').css({
+                    backgroundColor: "white"
+                });
+                // Now use jsonobject to do some charting...
+                alert("here");
+               // alert("jsonobject :"+ jsonobject);
+
+               // alert(jsonobject + '');
 
 
-       
+
+               // var jsona = JSON.parse(jsonobject);
+               // alert("jsona" + jsona);
+
+                //document.getElementById("output").innerHTML = 'here';
+
+               // to = jsonobject;
+            },
+            error: function() {
+                // Show some error message, couldn't get the CSV file
+
+            }
+        });
 
 
-/*
-var widget = new Cesium.CesiumWidget('cesiumContainer', {
-    imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-    })
-});
-*/
+        /*
+        var widget = new Cesium.CesiumWidget('cesiumContainer', {
+            imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
+                url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
+            })
+        });
+        */
 
 /*global $*/
 
@@ -269,16 +313,20 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
 
 	function loadCity(name /* string */){
 		
-		//alert(name+'');
+		alert(name+'');
 		
 	
-		
+		//addBillboard(scene,ellipsoid);
 		
 	}
 
 
-        function addBillboard(scene, ellipsoid) {
+        function addBillboard(scene, ellipsoid , long, lat) {
           //  Sandcastle.declare(addBillboard); // For highlighting in Sandcastle.
+            //var austin = Cesium.Cartographic.fromDegrees(-75.59777, 40.03883);
+         //   var austin = Cesium.Cartographic.fromDegrees(-97.69379,30.52087);
+          //  var randtweet = Cesium.Cartographic.fromDegrees(-97.36780,32.57142);
+            var loc = Cesium.Cartographic.fromDegrees(long,lat);
             var image = new Image();
             image.onload = function() {
                 var billboards = new Cesium.BillboardCollection();
@@ -286,14 +334,30 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
                     image : image
                 });
                 billboards.textureAtlas = textureAtlas;
-
+                /*
                 billboards.add({
                     position : ellipsoid.cartographicToCartesian(Cesium.Cartographic.fromDegrees(-75.59777, 40.03883)),
                     imageIndex : 0
                 });
+                 */
+//30.29128,-97.73858
+              /*
+                billboards.add({
+                    //position: ellipsoid.northLatitude( Cesium.Cartesian2.(-75.59777, 40.03883)),
+                 //   position : ellipsoid.cartographicToCartesian(new Cesium.Cartographic(30.29128,-97.73858,1.0)),
+                    position :ellipsoid.cartographicToCartesian(austin),
+                    imageIndex: 0
+                });
+                */
+                billboards.add({
+                   position:ellipsoid.cartographicToCartesian(loc),
+                    imageIndex:0
+                });
+
+
                 scene.primitives.add(billboards);
             };
-            image.src = '../images/Cesium_Logo_overlay.png';
+            image.src = 'bill.png';
         }
 
 
