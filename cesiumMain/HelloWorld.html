@@ -6,15 +6,9 @@ DESKTOP APPLICATION
 *PUT THEM IN A FINAL CSS FILE
 *MAKE SURE TO ALSO LOOK AT ANY FINAL NOTES BEFORE YOU FINALIZE THE PAGE
 *CLEAN UP ALL SPACES AND MAKE THE CODE LOOK PRETTY AND DANDY LIKE CANDY PLEASE
-
-
-
-
-
-
-
+*All Functions are the bottom must be put in another file
 -->
-<!-- -->
+<!--  -->
 
 <html lang="en">
 <head>
@@ -25,15 +19,13 @@ DESKTOP APPLICATION
   <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
   <title>Hello World!</title>
+
+  <script type="text/javascript" src="http://requirejs.org/docs/release/2.1.14/comments/require.js"></script>
+  <script type="text/javascript" src="json/jsonfile.js"></script>
   <script type="text/javascript" src="Cesium/Cesium.js"></script>
-    <script>
-
-
-    </script>
-
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"> </script>
   <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link type="text/css" rel="stylesheet"  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" >
+  <link type="text/css" rel="stylesheet"  href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
   <style>
       @import url(Cesium/Widgets/widgets.css);
@@ -72,10 +64,11 @@ DESKTOP APPLICATION
       	
       }
       
-      #oppboard menu, li {
+      #oppboard menu, li button {
       	float:right;
       	list-style:none;
-      	
+      	margin-right:15px;
+        width: 100px;
       }
       
       
@@ -86,217 +79,328 @@ DESKTOP APPLICATION
       }
       
   </style>
-
-
-
-
 </head>
-
 <body>
-
-
 
 <div id="cesiumContainer"> </div>
 
 <div>
 
-<div>
+<!-- bottom pop up container -->
 <div id="bottompopupcontainer" style="width:100%;height:401px;position:absolute;z-index:50;padding: 0px 0px 0px 0px;bottom:-200px;">
 	<div id="bottompopupsensor" style="width:100%;height:200px;background-color:transparent;z-index:60; " onmouseover="bottompopup()"> </div>
 	<div id="bottompopupbar" style="width:100%;height:200px;background-color:orange;z-index: 70;"> 
-	
-	
-			
-		
-		
+       <button type = "button" onclick= "test()"> Test </button> 
+	   
+        
+	   	
+        
 	</div>
 </div>
-</div>
 
-<div>
+    
 
+<!-- left pop up container -->
 <div id="leftpopupcontainer" style="display:inline-flex;top:0px;left:-200px;width: 401px;height: 100%;position: absolute;z-index: 20;padding: 0px 0px 0px 0px;">
     <div id="leftpopupbar" style="width: 200px;height: 100%;padding: 5px 5px 5px 5px;background-color:aqua;z-index: 40;margin: 0 0 0 0;"> 
     	<div style="top:0px;width:100%;background-color:orange;height: 36px;text-align: right;padding:3px 13px 3px 3px;" onmouseover="leftpopupstay()"> Opportunity </div>	
     	<div id="oppboard" style="width:100%;background-color:purple;">
-    		<menu style="width:100%;background-color:gray;" >
-    			<li>
-    				<button class="btn btn-inverse" onclick="loadCity('austin')" >Austin</button>    				    				    				
-    			</li>
-    			
-    			
-    		</menu>
+
+    		<ul style="width:100%;background-color:gray;display:inline;height:300px;margin:5px 5px 5px 5px;" >
+
+    		</ul>
     		
     	</div>
-    	
+        <div id="output"></div>
     </div>
     <div id="leftpopupsensor" style="width: 200px;height: 100%;background-color: transparent;z-index:30;" onmouseover="leftpopup()"> </div>
 </div>
-
+    
+    
+    
+<!-- logout zoomin zoomout -->
+<div style="background-color:blue;width:300px;height:300px;position:absolute;z-index:20;padding: 0px 0px 0px 0px;right:0;">
+    
+    <div style="background-color:orange;">
+    
+        <button>Logout</button>
+    
+    </div>
+    
+    <div style="background-color:gray;">
+        <button> + </button>
+        <button> - </button>
+       
+    </div>
 </div>
 
+    
+<!-- infobox -->
+
+<div id="infobox" style="background-color:snow;width:300px;height:300px;position:absolute;top:10%;right:30%;display:none;">
+    
+    
+</div>
+
+    
+    
+    
 </div>
 
 
-
-
-
-
-
+<script type="text/javascript" src="csvjson.js" ></script>
 <!-- FINAL SCRIPT TO LOAD AT BOTTOM OF PAGE -->
 <script type="text/javascript">
-
-
+ //require['Cesium'];
+        
+    /*
         var arcgis = new Cesium.ArcGisMapServerImageryProvider({
             url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
         });
-
 
         var bing = new Cesium.BingMapsImageryProvider({
         url : 'http://dev.virtualearth.net',
         key : 'AkwNVQkwsY2NXlal4eu11jNiPSKkGs-SmzdW_rCJ_woQNCSk5fS_1Oq5X-eVSXMK',
         mapStyle : Cesium.BingMapsStyle.AERIAL
-
-    });
-
-
-        var widget = new Cesium.CesiumWidget('cesiumContainer',{
-        	imageryProvider: new Cesium.OpenStreetMapImageryProvider()
-        				
-        		
-        	
-        	
-        	
         });
-		      
-        var telement = widget
-
+*/
+        var widget = new Cesium.CesiumWidget('cesiumContainer',{
+            imageryProvider: new Cesium.OpenStreetMapImageryProvider()
+        });
 
        
-
-
-/*
-var widget = new Cesium.CesiumWidget('cesiumContainer', {
-    imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-        url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-    })
-});
-*/
-
-/*global $*/
-
-/*
-(function () {
-    "use strict";
-   */
-/*
-    var widget = new Cesium.CesiumWidget('cesiumContainer');
-    var scene = widget.scene;
-*/
-    // Create toolbar template
+      
+        var ib = document.getElementById("infobox");
+        
+        var billboards = new Cesium.BillboardCollection();
+    
+        
+        var handler;
+        var scene = widget.scene;
+        var ellipsoid = scene.globe.ellipsoid;
+        var primitives = scene.primitives;
+       
+        var i = 0;
+    
+        for (i=0; i < jsonarray.length; i++){
+            var tstring = jsonarray[i].venue_name;
+            var lon = jsonarray[i].longitude;
+            var lat = jsonarray[i].latitude;
+            var onclick = 'loadBillboard('+lon+','+lat+','+i+')';
+            var htmlbutton = "<li> <button class='btn btn-warning' onclick="+onclick+">"+tstring+"</button> </li><br>";
+            $('#oppboard ul').append(htmlbutton);        
+        }
+       	
    
-/*
-    $('#toolbar').html(
-        '<button id="mode3D" class="aButton">3D globe</button> ' +
-        '<button id="modeColumbus" class="aButton">Columbus view</button> ' +
-        '<button id="mode2D" class="aButton">2D map</button>'
-    );
-*/
+    
+    function loadBillboard(lon,lat,index) {
+        
+        var i = 0;
+        //for (i = 0; i < jsonarray.length; i++){
+            
+        //}
+       // alert(billboards.get(index));
+      //  alert(scene);
+      //  alert(jsonarray[i].title);
+        
+       // ib.style - "display:none;";
+        
+        
+        
+        
+        
+        $(ib).css("display","block");
+        ib.innerHTML = jsonarray[index].title;
+        
+        var bidbutton = "<button type = 'button' class = 'btn btn-warning' > Bid </button>";
+        ib.innerHTML += bidbutton;
+        
+        var closebutton = "<button type = 'button' class = 'btn btn-warning' onclick='closeinfobox()'> X </button>";
+        ib.innerHTML += closebutton;
+       
+    }
+    
+    function loadBillboards(scene,ellipsoid,array,billboards){
+     
+        
+        var i = 0;
+        
+     //   for (i = 0; i < array.length; i++) {
+       //     addBillboard(scene,ellipsoid,array[i].longitude,array[i].latitude);
+     //   }
+        addAllBillboards(scene,ellipsoid,array,billboards);
+        
+    }
+    
 
 
-    // Activate toolbar buttons with jQuery UI
-    /*
-    $(".aButton").button({
-        text: true,
-        icons: { primary: "ui-icon-blank" }
-    }).click(function() {
-        // Emulate radio buttons
-        $(".aButton").button("option", { icons: { primary: "ui-icon-blank" }});
-        $(this).button("option", { icons: { primary: "ui-icon-check" }});
-    });
-*/
-    // 3D is the default view
-  
-
-/*
-    $('#mode2D').click(function () {
-        scene.morphTo2D();
-    });
-
-    $('#mode3D').click(function (){
-      scene.morphTo3D();
-
-
-    });
-
-    $('#modeColumbus').click(function(){
-      scene.morphToColumbusView();
-
-    });
-*/
-
-
-    // Just for fun
-   // $('#dialog').text('Try moving and closing this dialog, ' +
-    //    'and clicking the view buttons.').dialog();
-
-    //Sandcastle.finishedLoading();
-/* end of source code */
-
-/*
-    var widget = new Cesium.CesiumWidget('cesiumContainer',{
-        imageryProvider : new Cesium.BingMapsImageryProvider({
-            url: 'http://dev.virtualearth.net',
-            key: 'AkwNVQkwsY2NXlal4eu11jNiPSKkGs-SmzdW_rCJ_woQNCSk5fS_1Oq5X-eVSXMK',
-            mapStyle: Cesium.BingMapsStyle.AERIAL
-        })
-
-
-
-    });
-*/
-/*
-    var widget = new Cesium.CesiumWidget('cesiumContainer', {
-        imageryProvider : new Cesium.ArcGisMapServerImageryProvider({
-            url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'
-        })
-    });
-*/
-
-/*
-}());
-*/
-
-	function loadCity(name /* string */){
-		
-		//alert(name+'');
-		
-	
-		
-		
-	}
-
-
-        function addBillboard(scene, ellipsoid) {
-          //  Sandcastle.declare(addBillboard); // For highlighting in Sandcastle.
+    function addAllBillboards(scene, ellipsoid, array, billboards) {
+      //  var lon;
+      // var lat;
+       
             var image = new Image();
             image.onload = function() {
-                var billboards = new Cesium.BillboardCollection();
+               var i = 0;
                 var textureAtlas = scene.createTextureAtlas({
                     image : image
                 });
                 billboards.textureAtlas = textureAtlas;
-
-                billboards.add({
-                    position : ellipsoid.cartographicToCartesian(Cesium.Cartographic.fromDegrees(-75.59777, 40.03883)),
-                    imageIndex : 0
-                });
+                    
+                   for (i = 0; i < array.length; i++){
+                    var lon = array[i].longitude;
+                    var lat = array[i].latitude;
+                    var loc = Cesium.Cartographic.fromDegrees(lon,lat);
+                    billboards.add({
+                        position:ellipsoid.cartographicToCartesian(loc),
+                        imageIndex: 0
+                    });
+                   
+                    }
                 scene.primitives.add(billboards);
+                passBill(billboards);
+                
             };
-            image.src = '../images/Cesium_Logo_overlay.png';
+            image.src = 'marker.png';
+   
         }
 
+function passBill(billboards){
+    //alert(billboards.length);
+    
+    var i = 0;
+    for (i = 0; i < billboards.length; i++){
+    // hoverBillboard(scene,ellipsoid,billboards.get(i));   
+    }
+    
+}
+    
 
+    function addBillboard(scene, ellipsoid , lon, lat) {
+        
+            var image = new Image();
+            image.onload = function() {
+              
+                var textureAtlas = scene.createTextureAtlas({
+                    image : image
+                });
+                billboards.textureAtlas = textureAtlas;
+             
+        
+                    var loc = Cesium.Cartographic.fromDegrees(lon,lat);
+                    billboards.add({
+                        position:ellipsoid.cartographicToCartesian(loc),
+                        imageIndex: 0
+                    });
+
+                scene.primitives.add(billboards);
+                
+            };
+            image.src = 'marker.png';
+   
+        }
+
+            
+
+        function hoverBillboard(scene, ellipsoid,billboard) {
+            //var billboardin = billboard;
+          //  Sandcastle.declare(animateBillboardOnPick); // For highlighting in Sandcastle.
+          //  addBillboard(scene, ellipsoid);
+
+          //  var animation;
+            /*
+            function update(value) {
+                billboard.scale = value.scale;
+                billboard.color = new Cesium.Color(value.red, value.green, value.blue, value.alpha);
+            }
+
+            function complete() {
+                animation = undefined;
+                billboard.highlighted = !billboard.highlighted;
+            }
+            */
+            // If the mouse is over the billboard, change its scale and color.
+          //  if(billboard){
+                
+           //     alert("here"); 
+            
+           // }
+           
+            handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+            handler.setInputAction(function (movement) {
+                    
+                       if (billboard) {
+                        
+                           var pickedObject = scene.pick(movement.endPosition);
+                             if (Cesium.defined(pickedObject) && (pickedObject.primitive === billboard) && !billboard.highlighted) {
+                          
+                                
+                                 billboard.color = new Cesium.Color(0.0, 0.0, 1.0, 1.0);
+                                   
+                                 
+                             }
+                        
+                           else{
+                               billboard.color = new Cesium.Color(1.0, 1.0, 1.0, 1.0);
+                           }
+                        }
+                      
+                         
+                             
+                      
+                    },
+                   Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+                                     // Cesium.ScreenSpaceEventType.LEFT_CLICK);
+        }
+
+/*
+ var pickedObject = scene.pick(movement.endPosition);
+                if (Cesium.defined(pickedObject) && (pickedObject.primitive === billboard) && !billboard.highlighted) {
+                    // on enter
+                    animation = animation || scene.animations.add({
+                        onUpdate : update,
+                        onComplete : complete,
+                        startValue : {
+                            scale : billboard.scale,
+                            red   : billboard.color.red,
+                            green : billboard.color.green,
+                            blue  : billboard.color.blue,
+                            alpha : billboard.color.alpha
+                        },
+                        stopValue : {
+                            scale : 2.0,
+                            red   : 1.0,
+                            green : 1.0,
+                            blue  : 0.0,
+                            alpha : 1.0
+                        },
+                        duration : 500,
+                        easingFunction : Cesium.Tween.Easing.Quartic.Out
+                    });
+                }
+                else if ((pickedObject !== billboard) && billboard.highlighted) {
+                    // on exit
+                    animation = animation || scene.animations.add({
+                        onUpdate : update,
+                        onComplete : complete,
+                        startValue : {
+                            scale : billboard.scale,
+                            red   : billboard.color.red,
+                            green : billboard.color.green,
+                            blue  : billboard.color.blue,
+                            alpha : billboard.color.alpha
+                        },
+                        stopValue : {
+                            scale : 1.0,
+                            red   : 1.0,
+                            green : 1.0,
+                            blue  : 1.0,
+                            alpha : 1.0
+                        },
+                        duration : 500,
+                        easingFunction : Cesium.Tween.Easing.Quartic.Out
+                    });
+                }
+*/
 
 
 /* left pop up bar */
@@ -347,17 +451,10 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
         },50);
 		
 
-
-
-
-		
-
         $('#leftpopupsensor').attr({
             onmouseover: "leftpopupout()"
         }  );
-    
-        
-        
+
     }
 
 /* end of left pop up bar */
@@ -378,7 +475,7 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
 		
 		$('#leftpopupbar').css({
         	zIndex: "40"
-        });
+      });
         $('#leftpopupsensor').css({
         	zIndex: "30"
         });
@@ -419,11 +516,10 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
 			onmouseover: "bottompopupout()"
 			
 		});
-		
-		
+			
 	}
-/* end of bottom pop up bar */
 
+/* end of bottom pop up bar */
 	function leftpopupstay(){
 		
 		
@@ -431,6 +527,33 @@ var widget = new Cesium.CesiumWidget('cesiumContainer', {
 		
 	}
 
+    
+    function closeinfobox() {
+     $(ib).css("display","none");   
+    }
+
+        function cleanup() {
+            viewer.scene.primitives.removeAll();
+            handler = handler && handler.destroy();
+        }
+
+    function test() {
+      var scene = scene;
+    //require(['Cesium'], function(Cesium) {
+    //"use strict";
+    var destination = Cesium.Cartesian3.fromDegrees(-117.16, 32.71, 15000.0);
+    //var destination = Cesium.Cartographic.fromDegrees(-117.16, 32.71,15000.0);
+    var flight = Cesium.CameraFlightPath.createAnimation(scene, {
+            destination : destination
+        });
+        //alert("here");
+        scene.animations.add(flight);
+        //alert("here"); 
+      // }
+    }
+    
+    loadBillboards(scene,ellipsoid,jsonarray,billboards);
+   
   </script>
 
 </body>
